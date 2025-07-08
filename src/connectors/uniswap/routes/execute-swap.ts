@@ -19,7 +19,6 @@ export const executeSwapRoute: FastifyPluginAsync = async (
   // Import the httpErrors plugin to ensure it's available
   await fastify.register(require('@fastify/sensible'));
 
-  // Get first wallet address for example
   const walletAddressExample = await Ethereum.getWalletAddressExample();
 
   // Get available networks from Ethereum configuration (same method as chain.routes.ts)
@@ -40,11 +39,7 @@ export const executeSwapRoute: FastifyPluginAsync = async (
         body: {
           type: 'object',
           properties: {
-            network: {
-              type: 'string',
-              default: 'mainnet',
-              enum: ethereumNetworks,
-            },
+            network: { type: 'string', default: 'mainnet', enum: ['mainnet'] },
             walletAddress: { type: 'string', examples: [walletAddressExample] },
             baseToken: { type: 'string', examples: ['WETH'] },
             quoteToken: { type: 'string', examples: ['USDC'] },
